@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+  /* Prevents the 'bounce' effect */
+  overscroll-behavior-y: none;
+}
+
+body {
+    font-family: Georgia, serif;
+    background-color: #000000;
+    color: #2c2c2c;
+    line-height: 1.7;
+}
+
+/* Header */
+header {
+    background-color: #000000;
+    color: #faf8f5;
+    padding: 5px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+	margin-top: -30px;
+}
+
+header p {
+    font-size: 1rem;
+    color: #ff8c00;
+	margin-top: -15px;
+}
+
+/* Navigation */
+nav {
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0.8rem 0;
+}
+
+nav a {
+    color: #faf8f5;
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+	padding: 0 35px;
+}
+
+nav a:hover,
+nav a.active {
+    color: #fbff00;
+}
+
+.nav-container {
+  display: inline-block;    /* Shrinks the width to fit the links */
+  border-bottom: 2px solid #ff8c00; /* The unbroken line */
+}
+
+/* Main content */
+main {
+    max-width: 860px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+/* Page heading */
+.page-heading {
+	color: #ff4000;
+    border-bottom: 2px solid #ff8c00;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+/* Blog post card */
+.post-card {
+    background-color: #fff;
+    border: 1px solid #e5e0d8;
+    border-radius: 4px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+}
+
+.post-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.post-card h2 a {
+    color: #2c2c2c;
+    text-decoration: none;
+}
+
+.post-card h2 a:hover {
+    color: #c9a96e;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 0.8rem;
+}
+
+.post-card p {
+    font-size: 0.98rem;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #c9a96e;
+    text-decoration: none;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+img {
+	image-rendering: pixelated;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 0px;
+    font-size: 0.85rem;
+    color: #ff4000;
+    border-top: 1px solid #ff8c00;
+    margin-top: 4rem;
+	margin-bottom: 0px;
+}
