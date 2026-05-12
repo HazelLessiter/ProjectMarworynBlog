@@ -119,7 +119,7 @@ main {
     display: inline-block;
     margin-top: 1rem;
     font-size: 0.9rem;
-    color: #fbff00;--/* ff4000 is red, fbff00 is yellow *
+    color: #fbff00;--/* ff4000 is red, fbff00 is yellow */
     text-decoration: none;
 }
 
