@@ -27,7 +27,7 @@ header {
 header h1 {
     font-size: 2.5rem;
     letter-spacing: 0.05em;
-	margin-top: -30px;
+	margin-top: -29px;
 }
 
 header p {
@@ -73,7 +73,7 @@ main {
 
 /* Page heading */
 .page-heading {
-	color: #ff4000;
+	color: #ffffff;
     border-bottom: 2px solid #ff8c00;
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
@@ -82,42 +82,44 @@ main {
 
 /* Blog post card */
 .post-card {
-    background-color: #fff;
-    border: 1px solid #e5e0d8;
+    background-color: #000000;
+    border: 2px solid #ff4000;
     border-radius: 4px;
     padding: 1.5rem 2rem;
     margin-bottom: 2rem;
 }
 
 .post-card h2 {
+	color: #ffffff !important;
     font-size: 1.3rem;
     margin-bottom: 0.3rem;
 }
 
 .post-card h2 a {
-    color: #2c2c2c;
+    color: #ffffff !important;
     text-decoration: none;
 }
 
 .post-card h2 a:hover {
-    color: #c9a96e;
+    color: #fbff00;
 }
 
 .post-meta {
     font-size: 0.85rem;
-    color: #888;
+    color: #ff8c00 !important;
     margin-bottom: 0.8rem;
 }
 
 .post-card p {
     font-size: 0.98rem;
+	color: #ffffff;
 }
 
 .read-more {
     display: inline-block;
     margin-top: 1rem;
     font-size: 0.9rem;
-    color: #c9a96e;
+    color: #fbff00;--/* ff4000 is red, fbff00 is yellow *
     text-decoration: none;
 }
 
