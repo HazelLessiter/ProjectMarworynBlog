@@ -27,6 +27,89 @@
         <h2 class="page-heading">Programming Project Marworyn</h2>
 
 		<article class="post-card">
+            <h2>What is Project Marworyn?</h2>
+            <p class="post-meta">15th May 2026 - Project Marworyn</p>
+            <p>Marworyn is Welsh for ember. I picked it because I've always enjoyed a particular kind of video game. A lonely game where the world is harsh and difficult. You can overcome the challenge or loose to the environment. The actual risk of failure is what makes it so rewarding or so bittersweet.</br></br>
+
+            Probably the biggest inspiration theme-wise was Banished. Banished is a game where your village is exiled and you must build a new village in the wilderness to survive. Get it right and you can build a thriving community, get it wrong and your people could starve or freeze in the uncaring winter.</br></br>
+
+            I named this project "ember" because that's where the player starts. They start by clutching the faint ember of humanity in their hands. It can flare back into life, or it can grow cold and die.</br></br>
+
+            Now, let's talk technical origins. This project started out as a name generator which you can find here: <a href="https://github.com/HazelLessiter/UniqueNameGenerator">https://github.com/HazelLessiter/UniqueNameGenerator</a> (warning, bad code ahead. I wrote this 8 years ago). Here's what's there and what's wrong with it:</br></br>
+
+            It's an old ASP.NET MVC 5 web app that generates 22 random names by pulling random prefixes and suffixes from a SQL Server Express local database and concatenating them.</br></br>
+
+            The concatonation is super basic and boring. Yes, boring! It is just bare string concatenation with no logic at all:</br>
+            <code>names.Add(prefix + suffix);</code></br></br>
+
+            No separator, no capitalisation rules, no length checks, no transformation, no nothing! The prefixes and suffixes in the database were then joined directly. The code had no awareness of HOW the names were joined it just stuck two strings together. That's it — it was essentially a data-driven name vocabulary builder.</br></br>
+
+            So, why did I build it?</br></br>
+
+            Ah, now then! This is where it gets interesting!</br></br>
+
+            It's actually because of Dwarf Fortress. I was playing the game and I wanted a tool to help me nickname my dwarves.</br></br>
+
+            Initially, as many players do, I did this manually using DFHack. I had this idea that I could track families in my long-running fortress by giving them nicknames:</br>
+            -For a female dwarf: MotherName FatherName</br>
+            -For a male dwarf: FatherName MotherName</br></br>
+
+            The founders all had just one name like "Serena" and all the children had two names. By the third generation I was going:</br></br>
+            -MotherFirstName FatherLastName</br>
+            -FatherFirstName MotherLastName</br>
+
+            Look familiar?</br></br>
+
+            It's almost, but not quite my current naming logic for Project Marworyn. The name generation there is smarter. The "Person" object carries explicit Prefix and Suffix fields, and children's names are blended from both parents' parts rather than randomly pulled from a flat vocabulary. The linguistic "pattern" is an actual rule in the code. One that formed the very foundation of what this project is.</br></br>
+
+            Go back in my github history... Project Marworyn started with just a "Name" object.</br></br>
+
+            It was a NameGenerator.</br></br>
+
+            But, a more interesting one.</br></br>
+
+            My old UniqueNameGenerator Dwarf Fortress tool was clearly displaying that thread of thinking 8 years ago.</br></br>
+
+            But, not quite.</br></br>
+
+            Here's everything wrong with UniqueNameGenerator:</br>
+            -<code>new Random()</code> inside the generation loop - under concurrent load it gets the same seed and produces identical names across requests</br>
+            -<code>rnd.Next(maxPrefixID)</code> can return 0, and if IDs are 1-based, <code>.First()</code> throws <code>InvalidOperationException</code> and crashes the request silently</br>
+            -88 database queries per page load — it recalculates <code>Max(PrefixID)</code> and fetches each name individually inside the loop rather than loading the data once. (This is how you make your DBA cry.)</br>
+            -No authentication anywhere — the entire CRUD interface is publicly accessible... But this is kinda moot for what SHOULD have been a silly little console app. Why did I build it in MVC? IDK.</br>
+            -<code>debug="true"</code> hardcoded in Web.config (for what it matters)</br>
+            -Local .mdf database file sat in App_Data, committed to source control - Don't do this in production code, children. Not a good idea.</br>
+            -.NET Framework 4.6.1, ASP.NET MVC 5, Entity Framework 6 with the old EDMX designer format (Database-First, generated T4 templates). All 2013 - 2016 vintage wine</br>
+            -jQuery 1.10.2 and Bootstrap 3.0.0 — Both over a decade old and carrying known CVEs</br>
+            -No async/await anywhere, everything blocks the thread pool</br>
+            -No service or repository layer — controllers hit DBEntities directly, so it's completely untestable</br>
+            -No error handling or logging beyond the default MVC error page</br></br>
+
+            People who'd be horribly offended by this code:</br>
+            -DBAs</br>
+            -InfoSec</br>
+            -Martin Fowler himself</br></br>
+
+            But... At the end of the day it was a learning project from 2018 that works in the happy path.</br></br>
+
+            Practically speaking it's not worth patching — it would be a full rewrite to bring it to modern standards. But, I don't care. I'm keeping it in a nice public archieve so the whole world can point and laugh at it. And, hopefully we can all look at Project Marworyn to see how far I've come in those 8 years.</br></br>
+
+            That's cool and all... But, I still havn't explained where the prefix/suffix logic came from. Why, I had that idea when I was nicknaming dwarves in an ASCII game.</br></br>
+
+            It actually came from a book.</br></br>
+
+            I read the Anne McCaffrey Dragonriders of Pern series (yes, all of them, there are a lot). When I was younger I always thought how cool it was that this WORLD developed its own culture and its own way of life, different from anything that felt familiar. But logical in its origins.</br></br>
+
+            In those books, the Dragonriders had honorary names that were contracted forms of their real names. The idea was that when flying around quickly attacking Thread (if you don't know what I mean, just read the books), you needed a way to QUICKLY refer to someone's names without worrying about honorifics or titles. Just "OI YOU!" So your pal didn't get stung by the nasty Thread. The way the characters solved that problem, as a community, was they contracted their names to one or two syllables. You got names like F'lar and F'lessan.</br></br>
+
+            However, what's also interesting is that the names these Dragonriders often gave to their children? Derived from their parents' names. F'Lessan was son of F'lar and Lessa. His name was a mutation of his parents' names. A portmanteau of his parent's names inline with the tradition and culture of his people.</br></br>
+
+            I just thought that was perhaps the most interesting way to make a world feel alive. To have a history, a culture, and a way of carrying family names forward that feels different from our own.</br></br>
+
+            I was thinking about it a lot 8 years ago, and it never really left my mind. So, here is my little version. Project Marworyn — a NameGenerator that kept expanding until it was something else entirely, creating a world of its own.</p>
+        </article>
+
+		<article class="post-card">
             <h2>User Choice</h2>
             <p class="post-meta">12th May 2026 - Project Marworyn</p>
             <p>Ok, so I got a little distracted and instead of building my population simulator I built a whole website. Only html and css, but still. That's two hours of my life. I really should get some coding done.</br></br>
@@ -95,12 +178,6 @@
 			This is why I created this bog. I think there is more room on the internet for old-school indie web blogs. This one just happens to be about programming and sustainable crafting. By all means visit the Tavern to see links to various other interesting websites.</br></br>
 
 			If you're a Software Engineer, like I am, I emplore you to do the same. The internet needs more human voices, so maybe we can hear each other over the noise.</p>
-        </article>
-
-        <article class="post-card">
-            <h2>What is Project Marworyn?</h2>
-            <p class="post-meta">10th May 2026 - Project Marworyn</p>
-            <p>Marworyn is Welsh for "Ember", it's a population simulator inspired by video games such as Banished.</p>
         </article>
     </main>
 
