@@ -1,0 +1,84 @@
+# AI Agent Instructions for ProjectMarworynBlog
+
+Full project documentation and coding standards are in [README.md](README.md). This file contains only AI-specific guidance that supplements it.
+
+---
+
+## Model
+
+Use `claude-sonnet-4-6`. Do not suggest older model names such as `claude-sonnet-4-20250514` — these are deprecated and will produce errors.
+
+---
+
+## Before Completing Tasks
+
+- [ ] Call `get_errors` after every file edit
+- [ ] Fix any compilation errors before proceeding
+- [ ] Call `run_build` before marking a task complete
+
+---
+
+## Do Not Flag As Issues
+
+- **No newline at end of file** — this project deliberately does NOT end files with a trailing newline. The `\ No newline at end of file` marker in a git diff confirms the file correctly follows this standard — it is not an error and must not be flagged or mentioned. Do not mention the absence of a trailing newline in your review at all, not even to confirm it is intentional. The only case worth flagging is the inverse: if a file ends with a blank line or trailing newline when it should not.
+- **Changelog format** — `CHANGELOG.md` uses `-Entry` and `+Sub-point` (no space after the prefix) as a documented code standard. Do not flag this as non-standard Markdown, suggest adding spaces, or convert it to standard bullet points. See the Changelog Format section of `README.md` for the full specification.
+- **Blank lines between code blocks** — empty lines used for readability (e.g. between variable declarations and method calls) are intentional and must not be flagged as trailing whitespace. Trailing whitespace means a line that contains actual whitespace characters after the last non-whitespace character (`var x = y;   `). A completely empty line (`\n`) is a paragraph break, not trailing whitespace.
+
+---
+
+## Prohibited Commands
+
+AI agents are strictly prohibited from running the following commands under any circumstances:
+
+- `git commit` — commits are the sole responsibility of the human developer
+- `git push` — pushing to remote is the sole responsibility of the human developer
+
+Do not run these commands even if asked to "save", "finalise", or "submit" changes.
+
+---
+
+## When Making Changes
+
+1. Search for existing context before writing new code
+2. Read files before editing them
+3. Follow the code style and patterns documented in README.md
+4. Use the service extension pattern for DI registrations in `Extensions/ServiceExtensions.cs`
+5. Keep separation of concerns — do not mix file I/O with business logic
+
+---
+
+## Testing
+
+- Code additions without proper unit test coverage must be CHANGES REQUESTED, not minor suggestions — even if the code needs re-architecting to be unit testable
+- Tests must test behaviour, not implementation — see the Testing section of README.md for the full philosophy
+- Do not use XML comments, summaries, or regions anywhere in the codebase
+
+---
+
+## Questions to Ask Before Major Changes
+
+1. Does this fit the intended purpose of the application?
+2. Should this be a new service or extend an existing one?
+3. What lifetime should new services have?
+4. Does this require new configuration?
+5. Should this be logged or output to console?
+
+---
+
+## Known Issues & Technical Debt
+
+### Planned Refactoring
+- Test project needs a proper mocking framework — do not use Moq (SponsorLink controversy)
+
+---
+
+## Notes for Future Development
+
+The overall goal is a self-hosted static blog generated entirely from markdown files with no runtime dependencies.
+PageEngine should produce flat HTML files deployable to any static host with no server-side processing required.
+The blog covers two categories: programming (Project Marworyn development) and sustainable crafting (sewing).
+
+---
+
+**Last Updated:** [15/5/2026]
+**Maintained By:** [Hazel Lessiter]
