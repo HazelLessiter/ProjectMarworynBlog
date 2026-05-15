@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PageEngine.Tests/PageEngine.Tests.csproj" />
+  <Project Path="PageEngine/PageEngine.csproj" />
+</Solution>
